@@ -2,6 +2,7 @@
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 #include <vector>
+#include <string>
 
 struct encryptedDataStruct {
 	std::vector<uint8_t> salt;
