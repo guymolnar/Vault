@@ -1,8 +1,9 @@
 #pragma once
-#include <openssl/evp.h>
-#include <openssl/rand.h>
+#include <cstdint>
 #include <vector>
 #include <string>
+#include <openssl/evp.h>
+#include <openssl/rand.h>
 
 struct encryptedDataStruct {
 	std::vector<uint8_t> salt;

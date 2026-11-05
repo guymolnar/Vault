@@ -11,8 +11,13 @@
 #endif
 std::vector<uint8_t> serialize(const encryptedDataStruct& encryptedData) {
 	std::vector<uint8_t> out;
+	// Write the ciphertext length as 4 explicit little-endian bytes, so the
+	// on-image format does not depend on the host's byte order.
 	auto len = static_cast<uint32_t>(encryptedData.data.size());
-	out.insert(out.end(), reinterpret_cast<uint8_t*>(&len), reinterpret_cast<uint8_t*>(&len) + 4);
+	out.push_back(static_cast<uint8_t>( len        & 0xFF));
+	out.push_back(static_cast<uint8_t>((len >> 8)  & 0xFF));
+	out.push_back(static_cast<uint8_t>((len >> 16) & 0xFF));
+	out.push_back(static_cast<uint8_t>((len >> 24) & 0xFF));
 	out.insert(out.end(), encryptedData.salt.begin(), encryptedData.salt.end());
 	out.insert(out.end(), encryptedData.iv.begin(),   encryptedData.iv.end());
 	out.insert(out.end(), encryptedData.tag.begin(),  encryptedData.tag.end());
@@ -20,23 +25,25 @@ std::vector<uint8_t> serialize(const encryptedDataStruct& encryptedData) {
 	return out;
 }
 
-encryptedDataStruct deserialize(const std::vector<uint8_t>& encryptedDataBytes)
+encryptedDataStruct deserialize(const std::vector<uint8_t>& encryptedDataBytes) 
 {
 	encryptedDataStruct result;
-	// Header is len(4) + salt(16) + iv(12) + tag(16) = 48 bytes.
 	if (encryptedDataBytes.size() < 48)
 	{
 		throw std::runtime_error("serialized data too small (missing header)");
 	}
-	uint32_t len = 0;
-	std::memcpy(&len, encryptedDataBytes.data(), 4);
+	uint32_t len =
+		  static_cast<uint32_t>(encryptedDataBytes[0])
+		| (static_cast<uint32_t>(encryptedDataBytes[1]) << 8)
+		| (static_cast<uint32_t>(encryptedDataBytes[2]) << 16)
+		| (static_cast<uint32_t>(encryptedDataBytes[3]) << 24);
 	if (encryptedDataBytes.size() < 48 + static_cast<size_t>(len))
 	{
 		throw std::runtime_error("serialized data too small (missing data)");
 	}
 	result.salt.assign(encryptedDataBytes.data() + 4,  encryptedDataBytes.data() + 20);
-	result.iv.assign(encryptedDataBytes.data() + 20, encryptedDataBytes.data() + 32);
-	result.tag.assign(encryptedDataBytes.data() + 32, encryptedDataBytes.data() + 48);
+	result.iv.assign(  encryptedDataBytes.data() + 20, encryptedDataBytes.data() + 32);
+	result.tag.assign( encryptedDataBytes.data() + 32, encryptedDataBytes.data() + 48);
 	result.data.assign(encryptedDataBytes.data() + 48, encryptedDataBytes.data() + 48 + len);
 	return result;
 }
