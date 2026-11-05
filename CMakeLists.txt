@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(GhostRun LANGUAGES CXX)
+project(Vault LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -20,20 +20,20 @@ set(SHARED_SOURCES
 )
 
 # Builder executable
-add_executable(GhostRunBuilder
+add_executable(VaultBuilder
         src/builder_main.cpp
         ${SHARED_SOURCES}
 )
-target_include_directories(GhostRunBuilder PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_include_directories(VaultBuilder PRIVATE ${CMAKE_SOURCE_DIR}/src)
 # Vendored single-header libs: mark as SYSTEM so their warnings don't pollute our build.
-target_include_directories(GhostRunBuilder SYSTEM PRIVATE ${CMAKE_SOURCE_DIR}/external)
-target_link_libraries(GhostRunBuilder PRIVATE OpenSSL::SSL OpenSSL::Crypto)
+target_include_directories(VaultBuilder SYSTEM PRIVATE ${CMAKE_SOURCE_DIR}/external)
+target_link_libraries(VaultBuilder PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 
 # Runner executable
-add_executable(GhostRunRunner
+add_executable(VaultRunner
         src/runner_main.cpp
         ${SHARED_SOURCES}
 )
-target_include_directories(GhostRunRunner PRIVATE ${CMAKE_SOURCE_DIR}/src)
-target_include_directories(GhostRunRunner SYSTEM PRIVATE ${CMAKE_SOURCE_DIR}/external)
-target_link_libraries(GhostRunRunner PRIVATE OpenSSL::SSL OpenSSL::Crypto)
+target_include_directories(VaultRunner PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_include_directories(VaultRunner SYSTEM PRIVATE ${CMAKE_SOURCE_DIR}/external)
+target_link_libraries(VaultRunner PRIVATE OpenSSL::SSL OpenSSL::Crypto)

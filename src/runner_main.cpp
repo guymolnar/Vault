@@ -5,7 +5,7 @@
 #include <utils.hpp>
 
 int main(int argc, char* argv[]) {
-    std::cout << "GhostRun Runner" << std::endl;
+    std::cout << "Vault Runner" << std::endl;
     if (argc != 2)
     {
         std::cout << "Wrong Usage! Try: " << argv[0] << " <PhotoPath>" << std::endl;

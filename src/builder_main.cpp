@@ -11,12 +11,12 @@
 int main(int argc, char* argv[])
 {
     //argv[0] = . | argv[1] = message data | argv[2] = original photo path | argv[3] = output photo path
-    std::cout << "GhostRun Builder" << std::endl;
+    std::cout << "Vault Builder" << std::endl;
     if (argc != 4)
     {
         std::cout << "Wrong Usage!" << std::endl << "Try: " << argv[0] << " <Data> <OriginalPhotoPath> <NewPhotoPath>" << std::endl;
         std::cout << "Example: " << std::endl;
-        std::cout << "./GhostRunBuilder \"this is a secret message\" photo.png output.png" << std::endl;
+        std::cout << "./VaultBuilder \"this is a secret message\" photo.png output.png" << std::endl;
         return 1;
     }
     if (!std::filesystem::exists(argv[2]))
