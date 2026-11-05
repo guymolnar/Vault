@@ -1,5 +1,6 @@
 #include <aes.hpp>
 #include <cstring>
+#include <stdexcept>
 
 std::vector<uint8_t> serialize(const encryptedDataStruct& encryptedData) {
 	std::vector<uint8_t> out;
@@ -15,8 +16,16 @@ std::vector<uint8_t> serialize(const encryptedDataStruct& encryptedData) {
 encryptedDataStruct deserialize(const std::vector<uint8_t>& encryptedDataBytes)
 {
 	encryptedDataStruct encryptedDataStruct;
+	if (encryptedDataBytes.size() < 32)
+	{
+		throw std::runtime_error("serialized data too small (missing header)");
+	}
 	uint32_t len = 0;
 	std::memcpy(&len, encryptedDataBytes.data(), 4);
+	if (encryptedDataBytes.size() < 32 + static_cast<size_t>(len))
+	{
+		throw std::runtime_error("serialized data too small (missing data)");
+	}
 	encryptedDataStruct.iv.assign(encryptedDataBytes.data() + 4, encryptedDataBytes.data() + 16);
 	encryptedDataStruct.tag.assign(encryptedDataBytes.data() + 16, encryptedDataBytes.data() + 32);
 	encryptedDataStruct.data.assign(encryptedDataBytes.data() + 32, encryptedDataBytes.data() + 32 + len);
