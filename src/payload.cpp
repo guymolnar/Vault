@@ -1,4 +1,4 @@
-#include <payload/payload.hpp>
+#include <payload.hpp>
 
 std::unordered_map<std::string, PayloadType> stringToPayloadType
 {

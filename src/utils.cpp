@@ -1,4 +1,5 @@
-#include <aes/aes.hpp>
+#include <aes.hpp>
+#include <cstring>
 
 std::vector<uint8_t> serialize(const encryptedDataStruct& encryptedData) {
 	std::vector<uint8_t> out;

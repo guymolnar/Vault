@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
-#include <aes/aes.hpp>
+#include <aes.hpp>
 #include <cstring>
 #include <filesystem>
-#include <steg/steg.hpp>
-#include <utils/utils.hpp>
-#include <payload/payload.hpp>
+#include <steg.hpp>
+#include <utils.hpp>
+#include <payload.hpp>
 
 int main(int argc, char* argv[])
 {

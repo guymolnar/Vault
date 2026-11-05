@@ -9,7 +9,6 @@ set(SHARED_SOURCES
         src/aes.cpp
         src/steg.cpp
         src/utils.cpp
-        src/loader.cpp
         src/payload.hpp
         src/payload.cpp
 )

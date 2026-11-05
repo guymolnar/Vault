@@ -1,8 +1,7 @@
 #include <iostream>
-#include <aes/aes.hpp>
-#include <steg/steg.hpp>
-#include <utils/utils.hpp>
-#include <loader/loader.hpp>
+#include <aes.hpp>
+#include <steg.hpp>
+#include <utils.hpp>
 
 int main(int argc, char* argv[]) {
     std::cout << "GhostRun Runner" << std::endl;

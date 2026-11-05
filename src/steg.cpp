@@ -3,9 +3,10 @@
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
-#include <steg/steg.hpp>
+#include <steg.hpp>
 
 #include <stdexcept>
+#include <cstring>
 
 void embedData(const std::vector<uint8_t> &data, const char *imagePath, const char *outputPath)
 {
