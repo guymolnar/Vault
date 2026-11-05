@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <aes.hpp>
 #include <cstring>
 #include <filesystem>
 #include <steg.hpp>
 #include <utils.hpp>
+#include <openssl/rand.h>
 
 int main(int argc, char* argv[])
 {
@@ -23,18 +25,38 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::vector<uint8_t> data(argv[1], argv[1] + strlen(argv[1])); //Data is being recieved as a c string, cant use argv[1].end()
-
+    std::vector<uint8_t> data(argv[1], argv[1] + strlen(argv[1]));
     const char *originalImagePath = argv[2];
     const char *newImagePath = argv[3];
 
+    std::string password = readPassword("Password: ");
+    std::string confirm  = readPassword("Confirm password: ");
+    if (password.empty())
+    {
+        std::cout << "Password cannot be empty." << std::endl;
+        return 1;
+    }
+    if (password != confirm)
+    {
+        std::cout << "Passwords do not match." << std::endl;
+        return 1;
+    }
+
     try
     {
-        encryptedDataStruct encryptedData = encryptDataAes(data, AES_KEY);
-        //When embedding the struct into the image, We firstly have to serialize it and turn it into raw bytes (Need a way to represent it as such).
-        std::vector<uint8_t> encryptedDataRawBytes = serialize(encryptedData);
+        std::vector<uint8_t> salt(16);
+        if (RAND_bytes(salt.data(), salt.size()) != 1)
+        {
+            throw std::runtime_error("failed to generate salt");
+        }
+        std::vector<uint8_t> key = deriveKey(password, salt);
 
-        embedData(encryptedDataRawBytes, originalImagePath, newImagePath);//
+        encryptedDataStruct encryptedData = encryptDataAes(data, key.data());
+        encryptedData.salt = salt;   // store the salt so the receiver can re-derive the key
+
+        //When embedding the struct into the image, we firstly serialize it into raw bytes.
+        std::vector<uint8_t> encryptedDataRawBytes = serialize(encryptedData);
+        embedData(encryptedDataRawBytes, originalImagePath, newImagePath);
     }
     catch (std::exception &e)
     {

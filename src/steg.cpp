@@ -61,7 +61,7 @@ std::vector<uint8_t> extractData(const char *imagePath)
 	}
 	uint32_t dataLen = 0;
 	std::memcpy(&dataLen, lenBytes, 4);
-	size_t totalBytes = 32 + static_cast<size_t>(dataLen);
+	size_t totalBytes = 48 + static_cast<size_t>(dataLen);
 	if (totalBytes * 8 > capacity) {
 		stbi_image_free(pixels);
 		throw std::runtime_error("Data size exceeds image capacity");
