@@ -1,4 +1,0 @@
-/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles/GhostRunBuilder.dir
-/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles/GhostRunRunner.dir
-/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles/edit_cache.dir
-/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles/rebuild_cache.dir
