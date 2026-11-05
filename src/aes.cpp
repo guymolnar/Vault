@@ -5,23 +5,42 @@ encryptedDataStruct encryptDataAes(const std::vector<uint8_t>& plaintext, const 
 {
 	encryptedDataStruct result;
 	result.iv.resize(12);
-	RAND_bytes(result.iv.data(), result.iv.size());
+	if (RAND_bytes(result.iv.data(), result.iv.size()) != 1)
+	{
+		throw std::runtime_error("RAND_bytes failed");
+	}
 	result.tag.resize(16);
 	EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
 	if (!ctx)
 	{
 		throw std::runtime_error("EVP_CIPHER_CTX_new failed");
 	}
-	EVP_EncryptInit_ex(ctx, EVP_aes_256_gcm(), NULL, key, result.iv.data());
+	if (EVP_EncryptInit_ex(ctx, EVP_aes_256_gcm(), NULL, key, result.iv.data()) != 1)
+	{
+		EVP_CIPHER_CTX_free(ctx);
+		throw std::runtime_error("EVP_EncryptInit_ex failed");
+	}
 
 	result.data.resize(plaintext.size());
 	int len = 0;
-	EVP_EncryptUpdate(ctx, result.data.data(), &len, plaintext.data(), plaintext.size());
+	if (EVP_EncryptUpdate(ctx, result.data.data(), &len, plaintext.data(), plaintext.size()) != 1)
+	{
+		EVP_CIPHER_CTX_free(ctx);
+		throw std::runtime_error("EVP_EncryptUpdate failed");
+	}
 
 	int finalLen = 0;
-	EVP_EncryptFinal_ex(ctx, result.data.data() + len, &finalLen);
+	if (EVP_EncryptFinal_ex(ctx, result.data.data() + len, &finalLen) != 1)
+	{
+		EVP_CIPHER_CTX_free(ctx);
+		throw std::runtime_error("EVP_EncryptFinal_ex failed");
+	}
 
-	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_GET_TAG, 16, result.tag.data());
+	if (EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_GET_TAG, 16, result.tag.data()) != 1)
+	{
+		EVP_CIPHER_CTX_free(ctx);
+		throw std::runtime_error("EVP_CTRL_GCM_GET_TAG failed");
+	}
 	EVP_CIPHER_CTX_free(ctx);
 	return result;
 }
