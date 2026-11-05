@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <aes.hpp>
 #include <steg.hpp>
 #include <utils.hpp>
@@ -12,11 +13,14 @@ int main(int argc, char* argv[]) {
     }
     const char *ImagePath = argv[1];
 
+    std::string password = readPassword("Password: ");
+
     try
     {
         std::vector<uint8_t> encryptedDataRawBytes = extractData(ImagePath);
         encryptedDataStruct encryptedData = deserialize(encryptedDataRawBytes);
-        std::vector<uint8_t> decryptedData = aesDecrypt(encryptedData, AES_KEY);
+        std::vector<uint8_t> key = deriveKey(password, encryptedData.salt);
+        std::vector<uint8_t> decryptedData = aesDecrypt(encryptedData, key.data());
         std::string decryptedDataString(decryptedData.begin(), decryptedData.end());
         std::cout << "Decrypted Data: " << decryptedDataString << std::endl;
     }
