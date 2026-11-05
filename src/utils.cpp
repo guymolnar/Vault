@@ -1,7 +1,14 @@
 #include <aes.hpp>
+#include <utils.hpp>
 #include <cstring>
 #include <stdexcept>
-
+#include <iostream>
+#ifdef _WIN32
+	#include <windows.h>
+#else
+	#include <termios.h>
+	#include <unistd.h>
+#endif
 std::vector<uint8_t> serialize(const encryptedDataStruct& encryptedData) {
 	std::vector<uint8_t> out;
 	auto len = static_cast<uint32_t>(encryptedData.data.size());
@@ -32,4 +39,34 @@ encryptedDataStruct deserialize(const std::vector<uint8_t>& encryptedDataBytes)
 	result.tag.assign(encryptedDataBytes.data() + 32, encryptedDataBytes.data() + 48);
 	result.data.assign(encryptedDataBytes.data() + 48, encryptedDataBytes.data() + 48 + len);
 	return result;
+}
+
+std::string readPassword(const std::string& prompt)
+{
+	std::cout << prompt << std::flush;
+	std::string password;
+
+#ifdef _WIN32
+	HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
+	DWORD oldMode = 0;
+	GetConsoleMode(hStdin, &oldMode);
+	SetConsoleMode(hStdin, oldMode & ~ENABLE_ECHO_INPUT);   // turn off echo
+
+	std::getline(std::cin, password);
+
+	SetConsoleMode(hStdin, oldMode);                        // restore
+#else
+	termios oldTerm;
+	tcgetattr(STDIN_FILENO, &oldTerm);
+	termios newTerm = oldTerm;
+	newTerm.c_lflag &= ~ECHO;                               // turn off echo
+	tcsetattr(STDIN_FILENO, TCSANOW, &newTerm);
+
+	std::getline(std::cin, password);
+
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldTerm);             // restore
+#endif
+
+	std::cout << std::endl;   // the Enter keypress wasn't echoed on either platform
+	return password;
 }
