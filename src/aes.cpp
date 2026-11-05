@@ -1,6 +1,22 @@
 #include <aes.hpp>
 #include <stdexcept>
 
+std::vector<uint8_t> deriveKey(const std::string& password, const std::vector<uint8_t>& salt)
+{
+	std::vector<uint8_t> key(32);
+	int iterations = 600000;
+
+	if (PKCS5_PBKDF2_HMAC(
+			password.c_str(), password.size(),
+			salt.data(), salt.size(),
+			iterations, EVP_sha256(),
+			key.size(), key.data()) != 1)
+	{
+		throw std::runtime_error("PBKDF2 key derivation failed");
+	}
+	return key;
+}
+
 encryptedDataStruct encryptDataAes(const std::vector<uint8_t>& plaintext, const uint8_t* key)
 {
 	encryptedDataStruct result;

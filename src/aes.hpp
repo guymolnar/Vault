@@ -4,17 +4,13 @@
 #include <vector>
 
 struct encryptedDataStruct {
+	std::vector<uint8_t> salt;
 	std::vector<uint8_t> iv;
 	std::vector<uint8_t> tag;
 	std::vector<uint8_t> data;
 };
 
-const uint8_t AES_KEY[32] = {
-	0x4F, 0x7A, 0x1B, 0xC3, 0xD8, 0x9E, 0x2F, 0xA5,
-	0x6D, 0x3C, 0x8B, 0xE1, 0x7F, 0x04, 0x59, 0xA2,
-	0xB6, 0x1D, 0xC4, 0x8A, 0xF3, 0x27, 0x60, 0xE9,
-	0x15, 0xD7, 0x4E, 0x93, 0xA8, 0x3F, 0x72, 0xC6
-};
+std::vector<uint8_t> deriveKey(const std::string& password, const std::vector<uint8_t>& salt);
 
 encryptedDataStruct encryptDataAes(const std::vector<uint8_t>& plaintext, const uint8_t* key);
 std::vector<uint8_t> aesDecrypt(const encryptedDataStruct& encrypted, const uint8_t* key);
