@@ -18,10 +18,7 @@ int main(int argc, char* argv[]) {
         encryptedDataStruct encryptedData = deserialize(encryptedDataRawBytes);
         std::vector<uint8_t> decryptedData = aesDecrypt(encryptedData, AES_KEY);
         std::string decryptedDataString(decryptedData.begin(), decryptedData.end());
-        for (const auto& c : decryptedData)
-        {
-            std::cout << c;
-        }
+        std::cout << "Decrypted Data: " << decryptedDataString << std::endl;
     }
     catch (std::exception& e)
     {
