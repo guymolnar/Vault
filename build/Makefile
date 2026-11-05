@@ -193,33 +193,6 @@ src/builder_main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunBuilder.dir/build.make CMakeFiles/GhostRunBuilder.dir/src/builder_main.cpp.s
 .PHONY : src/builder_main.cpp.s
 
-src/payload.o: src/payload.cpp.o
-.PHONY : src/payload.o
-
-# target to build an object file
-src/payload.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunBuilder.dir/build.make CMakeFiles/GhostRunBuilder.dir/src/payload.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunRunner.dir/build.make CMakeFiles/GhostRunRunner.dir/src/payload.cpp.o
-.PHONY : src/payload.cpp.o
-
-src/payload.i: src/payload.cpp.i
-.PHONY : src/payload.i
-
-# target to preprocess a source file
-src/payload.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunBuilder.dir/build.make CMakeFiles/GhostRunBuilder.dir/src/payload.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunRunner.dir/build.make CMakeFiles/GhostRunRunner.dir/src/payload.cpp.i
-.PHONY : src/payload.cpp.i
-
-src/payload.s: src/payload.cpp.s
-.PHONY : src/payload.s
-
-# target to generate assembly for a file
-src/payload.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunBuilder.dir/build.make CMakeFiles/GhostRunBuilder.dir/src/payload.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunRunner.dir/build.make CMakeFiles/GhostRunRunner.dir/src/payload.cpp.s
-.PHONY : src/payload.cpp.s
-
 src/runner_main.o: src/runner_main.cpp.o
 .PHONY : src/runner_main.o
 
@@ -314,9 +287,6 @@ help:
 	@echo "... src/builder_main.o"
 	@echo "... src/builder_main.i"
 	@echo "... src/builder_main.s"
-	@echo "... src/payload.o"
-	@echo "... src/payload.i"
-	@echo "... src/payload.s"
 	@echo "... src/runner_main.o"
 	@echo "... src/runner_main.i"
 	@echo "... src/runner_main.s"

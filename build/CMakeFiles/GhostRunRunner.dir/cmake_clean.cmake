@@ -2,8 +2,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/GhostRunRunner.dir/link.d"
   "CMakeFiles/GhostRunRunner.dir/src/aes.cpp.o"
   "CMakeFiles/GhostRunRunner.dir/src/aes.cpp.o.d"
-  "CMakeFiles/GhostRunRunner.dir/src/payload.cpp.o"
-  "CMakeFiles/GhostRunRunner.dir/src/payload.cpp.o.d"
   "CMakeFiles/GhostRunRunner.dir/src/runner_main.cpp.o"
   "CMakeFiles/GhostRunRunner.dir/src/runner_main.cpp.o.d"
   "CMakeFiles/GhostRunRunner.dir/src/steg.cpp.o"

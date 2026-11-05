@@ -5,41 +5,28 @@
 #include <filesystem>
 #include <steg.hpp>
 #include <utils.hpp>
-#include <payload.hpp>
 
 int main(int argc, char* argv[])
 {
-    //argv[0] = . | argv[1] = payload type | argv[2] = payload data | argv[3] = original photo path | argv[4] = output photo path
+    //argv[0] = . | argv[1] = message data | argv[2] = original photo path | argv[3] = output photo path
     std::cout << "GhostRun Builder" << std::endl;
-    if (argc != 5)
+    if (argc != 4)
     {
-        std::cout << "Wrong Usage!" << std::endl << "Try: " << argv[0] << " <Type> <Data> <OriginalPhotoPath> <NewPhotoPath>" << std::endl;
-        std::cout << "Examples: " << std::endl;
-        std::cout << "./GhostRunBuilder message \"this is a secret message\" photo.png output.png" << std::endl;
+        std::cout << "Wrong Usage!" << std::endl << "Try: " << argv[0] << " <Data> <OriginalPhotoPath> <NewPhotoPath>" << std::endl;
+        std::cout << "Example: " << std::endl;
+        std::cout << "./GhostRunBuilder \"this is a secret message\" photo.png output.png" << std::endl;
         return 1;
     }
-    if (!std::filesystem::exists(argv[3]))
+    if (!std::filesystem::exists(argv[2]))
     {
-        std::cout << "File does not exist: " << argv[3] << std::endl;
-        return 1;
-    }
-
-    auto it = stringToPayloadType.find(argv[1]);
-    if (it == stringToPayloadType.end())
-    {
-        std::cout << "Unknown payload type: " << argv[1] << std::endl;
-        std::cout << "Valid types: message, command, binary, script, stager" << std::endl;
+        std::cout << "File does not exist: " << argv[2] << std::endl;
         return 1;
     }
 
-    PayloadType payloadType = it->second;
+    std::vector<uint8_t> data(argv[1], argv[1] + strlen(argv[1])); //Data is being recieved as a c string, cant use argv[1].end()
 
-    std::vector<uint8_t> data(argv[2], argv[2] + strlen(argv[2])); //Data is being recieved as a c string, cant use argv[2].end()
-
-    Payload payload = createPayload(payloadType, data);
-
-    const char *originalImagePath = argv[3];
-    const char *newImagePath = argv[4];
+    const char *originalImagePath = argv[2];
+    const char *newImagePath = argv[3];
 
     try
     {

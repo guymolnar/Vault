@@ -88,12 +88,12 @@ clean: CMakeFiles/GhostRunRunner.dir/clean
 CMakeFiles/GhostRunBuilder.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunBuilder.dir/build.make CMakeFiles/GhostRunBuilder.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunBuilder.dir/build.make CMakeFiles/GhostRunBuilder.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target GhostRunBuilder"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target GhostRunBuilder"
 .PHONY : CMakeFiles/GhostRunBuilder.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/GhostRunBuilder.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/GhostRunBuilder.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles 0
 .PHONY : CMakeFiles/GhostRunBuilder.dir/rule
@@ -105,7 +105,7 @@ GhostRunBuilder: CMakeFiles/GhostRunBuilder.dir/rule
 # codegen rule for target.
 CMakeFiles/GhostRunBuilder.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunBuilder.dir/build.make CMakeFiles/GhostRunBuilder.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target GhostRunBuilder"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=1,2,3,4,5 "Finished codegen for target GhostRunBuilder"
 .PHONY : CMakeFiles/GhostRunBuilder.dir/codegen
 
 # clean rule for target.
@@ -120,12 +120,12 @@ CMakeFiles/GhostRunBuilder.dir/clean:
 CMakeFiles/GhostRunRunner.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunRunner.dir/build.make CMakeFiles/GhostRunRunner.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunRunner.dir/build.make CMakeFiles/GhostRunRunner.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=7,8,9,10,11,12 "Built target GhostRunRunner"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=6,7,8,9,10 "Built target GhostRunRunner"
 .PHONY : CMakeFiles/GhostRunRunner.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/GhostRunRunner.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/GhostRunRunner.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles 0
 .PHONY : CMakeFiles/GhostRunRunner.dir/rule
@@ -137,7 +137,7 @@ GhostRunRunner: CMakeFiles/GhostRunRunner.dir/rule
 # codegen rule for target.
 CMakeFiles/GhostRunRunner.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GhostRunRunner.dir/build.make CMakeFiles/GhostRunRunner.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=7,8,9,10,11,12 "Finished codegen for target GhostRunRunner"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/guy-molnar/Documents/Projects/GhostRun/build/CMakeFiles --progress-num=6,7,8,9,10 "Finished codegen for target GhostRunRunner"
 .PHONY : CMakeFiles/GhostRunRunner.dir/codegen
 
 # clean rule for target.
